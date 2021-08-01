@@ -1,2 +1,2 @@
 # dataset-parser
-A configurable HTML scraping tool for creating user reviews datasets.
+A regex-based HTML scraping tool created to build datasets from user reviews.

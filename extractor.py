@@ -3,15 +3,11 @@ from configurable import Configurable
 
 class Extractor(Configurable):
 
-    def __init__(self, config_file="config.json", output_base_dir="./output"):
-        super()
-        if not os.path.isfile(config_file) or not config_file.endswith("config.json"):
-                print(config_file.endswith("config.json"))
-                raise Exception('Please provide a valid path to a "config.json" file '+
-                                'that defines a "template" and an "outputPath". Check config.sample.json for reference.')
+    def __init__(self, input_file, config_file="config.json", output_base_dir="./output"):
+        Configurable.__init__(self, config_file)
 
-        self.config_file = config_file
-        self.config = self.load_config()
+        self.input_file = input_file
+        self.input = None
         self.template = self.config["template"]
         self.flattened_template_keys = []
         self.output = copy.deepcopy(self.template)
@@ -19,6 +15,7 @@ class Extractor(Configurable):
                     if not "outputPath" in self.config \
                     else self.get_config("outputPath")
         self.create_flattened_template_keys()
+        self.load_input()
 
     def create_flattened_template_keys(self, template=None, parent_keys=""):   
         if template is None:
@@ -70,6 +67,11 @@ class Extractor(Configurable):
             json.dump(self.output, f)
 
         print("File {} created".format(output_file))
+
+    def load_input(self):
+        if self.input is None:
+            with open(self.input_file, "r") as f:
+                self.input = f.read()
 
     def extract(self):
         pass

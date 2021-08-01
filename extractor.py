@@ -1,8 +1,10 @@
 import json, copy, os
+from configurable import Configurable
 
-class Extractor:
+class Extractor(Configurable):
 
     def __init__(self, config_file="config.json", output_base_dir="./output"):
+        super()
         if not os.path.isfile(config_file) or not config_file.endswith("config.json"):
                 print(config_file.endswith("config.json"))
                 raise Exception('Please provide a valid path to a "config.json" file '+
@@ -17,21 +19,6 @@ class Extractor:
                     if not "outputPath" in self.config \
                     else self.get_config("outputPath")
         self.create_flattened_template_keys()
-
-    def load_config(self):
-        with open(self.config_file) as f:
-            return json.load(f)
-
-    def get_config(self, key, config=None):
-        if config is None:
-            config = self.config
-
-        if "." in key:
-            return self.get_config(
-                    key[key.find(".")+1:],
-                    config[key[:key.find(".")]]
-                )
-        return config[key]
 
     def create_flattened_template_keys(self, template=None, parent_keys=""):   
         if template is None:

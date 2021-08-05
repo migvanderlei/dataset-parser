@@ -1,0 +1,37 @@
+{
+    "outputPath": "/home/miguel/Workspace/dataset-parser/output",
+    "inputPath": "/home/miguel/Workspace/dataset-parser/303297",
+    "maxParallelThreads": 6,
+    "charsToPurge": ["<", ">", "\\"],
+    "unicodeFormat": ["u\\d\\d\\w\\d"],
+    "textDateFields": ["publicationDate", "visitDate"],
+    "uniqueTemplateKeys": ["type", "localityId", "attractionId", "generalRatingValue", "itemReviewed"],
+    "template": {
+        "type": "\"pageType\":\"([\\w]*)",
+        "reviewId": "rid\":(\\d*)\\}\",\"trackingTitle\":\"ReviewDetailsCard",
+        "localityId":  "\"geoId\":(\\d*),\"detailId\"",
+        "attractionId": "\"location\":{\"locationId\":(\\d*),\"parentId\"",
+        "reviewTitle": "\"htmlTitle\":\\{\"text\":\"((?:(?!\"\\}).)*)\"\\},\"labels\":\\[",
+        "reviewText": "htmlText\":\\{\"text\":\"((?:(?!\"\\}).)*)\"\\},\"htmlTitle",
+        "userDisplayName": "\"trackingTitle\":\"ReviewDetailsCard_?(?:(?!displayName).)*\"displayName\":\"?((?:(?!\"?,\").)*)",
+        "username": "style=\"z-index:0\"div class=\"f3gJ-yIA _3sXDPf_W\"a target=\"_self\" tabindex=\"-1\" aria-hidden=\"true\" href=\"/Profile/(\\w*)\" class=\"_7c6GgQ6n _22upaSQN _37QDe3gr\"div class=\"WullykOU _2L7OTqqK\"picture class=\"_2f-Th360\"",
+        "userLocation": "\"trackingTitle\":\"ReviewDetailsCard_?(?:(?!hometown).)*\"hometown\":\"?((?:(?!\"?,\").)*)",
+        "publicationDate": "\"publishedDate\":(?:(?!\\d).)*((?:(?!\"\\}).)*)",
+        "visitDate": "\"bubbleRatingText\":{\"text\":\"(\\w{3}\\s\\w{2}\\s\\d{4})",
+        "generalRatingValue": "class=\"_28X3NMFC\"div class=\"zTTYS8QR\" aria-label=\"(\\d,?\\d?) de 5 círculos",
+        "userRatingValue": "bubbleRatingNumber\":(\\d)",
+        "reviewLikesCount": "class=\"DrjyGw-P _26S7gyB4 _3SccQt-T\"(\\d+)\/",
+        "itemReviewed": {
+            "type": "\"jsonLd\":\"\\{\"@type\":\"(\\w*)\"",
+            "name": "\"jsonLd\":\"\\{\"@type\":\"\\w*\",\"name\":\"((?:(?!\"?,\").)*)",
+            "address": {
+                "type": "\"address\":\\{\"@type\":\"((?:(?!\"?,\").)*)",
+                "streetAddress": "\"streetAddress\":\"((?:(?!\"?,\").)*)",
+                "addressLocality": "\"addressLocality\":\"((?:(?!\"?,\").)*)",
+                "addressRegion": "\"addressRegion\":\"((?:(?!\"?,\").)*)\\S*\"image\":\"https:/",
+                "postalCode": "\"postalCode\":\"((?:(?!\"?,\"))[\\d\\-\\.]*)",
+                "country": "\"addressCountry\":\"((?:(?!\"))[\\w\\s]*)\",\"postalCode"
+            }
+        }
+    }
+}

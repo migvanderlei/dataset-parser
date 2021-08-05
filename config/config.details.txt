@@ -1,0 +1,26 @@
+type: Tipo de página (e.g. "Attraction_Review")
+reviewId: id numérico
+localityId: id numérico
+attractionId: id numérico
+reviewTitle: titulo da review
+reviewText: texto da review
+userDisplayName: nome de exibição do usuário (e.g. "Miguel Oliveira")
+username: 'username' do usuário (e.g. "migvanderlei")
+userLocation: localização do usuário (e.g. "Manaus, AM")
+publicationDate: data da publicação da review (e.g. "12 de janeiro de 2020")
+visitDate: período da viagem (e.g. "jul de 2019")
+generalRatingValue: média de nota das reviews (e.g. "4.5")
+userRatingValue: nota da review (e.g. "5")
+reviewLikesCount: likes de outros usuários na review (e.g. "1")
+itemReviewed: {
+    type: tipo de local no cadastro do TripAdvisor (e.g. "LocalBusiness")
+    name: nome da atração (e.g. "Duna do Pôr do Sol")
+    address: {
+        type: tipo de endereço (e.g "PostalAddress")
+        streetAddress: nome da rua (e.g. "Rua das Dunas")
+        addressLocality: nome da cidade/local (e.g. "Jericoacoara")
+        addressRegion: nome do estado/região (e.g. "Ceará")
+        postalCode: cep do local (e.g. 69000-000)
+        "country": nome do país (e.g. "Brasil")
+    }
+}

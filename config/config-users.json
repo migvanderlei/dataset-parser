@@ -1,0 +1,15 @@
+{
+    "outputPath": "/home/miguel/Workspace/dataset-parser/output",
+    "maxProcessCount": 0.5,
+    "charsToPurge": ["<", ">", "\\"],
+    "textDateFields": [],
+    "uniqueTemplateKeys": ["type", "localityId", "attractionId"],
+    "template": {
+        "type": "\"pageType\":\"([\\w]*)",
+        "reviewId": "rid\":(\\d*)\\}\",\"trackingTitle\":\"ReviewDetailsCard",
+        "localityId": "\\{\"locations\":\\[\\{\"location\":\\{\"locationId\":\\d+,\"parentId\":(\\d+),\"name\"",
+        "attractionId": "\"location\":{\"locationId\":(\\d*),\"parentId\"",
+        "userDisplayName": "\"trackingTitle\":\"ReviewDetailsCard_?(?:(?!displayName).)*\"displayName\":\"?((?:(?!\"?,\").)*)",
+        "username": "style=\"z-index:0\"div class=\"f3gJ-yIA _3sXDPf_W\"a target=\"_self\" tabindex=\"-1\" aria-hidden=\"true\" href=\"/Profile/(\\w*)\" class=\"_7c6GgQ6n _22upaSQN _37QDe3gr\"div class=\"WullykOU _2L7OTqqK\"picture class=\"_2f-Th360\""
+    }
+}

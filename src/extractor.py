@@ -138,14 +138,14 @@ class Extractor(Configurable):
                     failed = True
 
             except Exception as e:
-                message += "An exception ocurred: {}".format(e)
+                message += "An exception ocurred: {}.".format(e)
                 failed = True
 
 
 
         if incomplete_data:
             failed = True
-            message = "Review is being discarded for having missing data for: {}".format(failed_keys)
+            message = "Review is being discarded for having missing data for: {}.".format(failed_keys)
             return (failed, message, success_keys, failed_keys, output_files, input_file)
         else:
             message = message.format(len(success_keys), len(failed_keys))
@@ -163,7 +163,7 @@ class Extractor(Configurable):
 
         except Exception as e:
             failed = True
-            message = "An error occurred, discarding review. The exception was: {}".format(e)
+            message = "An error occurred, discarding review. The exception was: {}.".format(e)
             success_keys = []
             failed_keys = []
             output_files = []

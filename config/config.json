@@ -1,7 +1,7 @@
 {
     "outputPath": "/home/miguel/Workspace/dataset-parser/output",
     "inputPath": "/home/miguel/Workspace/dataset-parser/303297",
-    "maxParallelThreads": 6,
+    "maxProcessCount": 0.3,
     "charsToPurge": ["<", ">", "\\"],
     "unicodeFormat": ["u\\d\\d\\w\\d"],
     "textDateFields": ["publicationDate", "visitDate"],
@@ -9,7 +9,7 @@
     "template": {
         "type": "\"pageType\":\"([\\w]*)",
         "reviewId": "rid\":(\\d*)\\}\",\"trackingTitle\":\"ReviewDetailsCard",
-        "localityId":  "\"geoId\":(\\d*),\"detailId\"",
+        "localityId": "\\{\"locations\":\\[\\{\"location\":\\{\"locationId\":\\d+,\"parentId\":(\\d+),\"name\"",
         "attractionId": "\"location\":{\"locationId\":(\\d*),\"parentId\"",
         "reviewTitle": "\"htmlTitle\":\\{\"text\":\"((?:(?!\"\\}).)*)\"\\},\"labels\":\\[",
         "reviewText": "htmlText\":\\{\"text\":\"((?:(?!\"\\}).)*)\"\\},\"htmlTitle",

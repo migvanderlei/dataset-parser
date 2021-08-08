@@ -61,27 +61,38 @@ class Extractor(Configurable):
         output[keys[-1]] = data
 
     def save_output(self, output):
-        output_dir = os.sep.join([
-                        self.output_base_dir,
-                        self.get_output("localityId", output),
-                        self.get_output("attractionId", output)
-                    ])
+        locality_id = self.get_output("localityId", output)
+        attraction_id = self.get_output("attractionId", output)
+        review_id = self.get_output("reviewId", output)
 
-        output_file = os.sep.join([
-                        output_dir,
-                        self.get_output("reviewId", output)+".json"
-                    ])
+        if locality_id and attraction_id and review_id:
+            output_dir = os.sep.join([
+                            self.output_base_dir,
+                            locality_id,
+                            attraction_id
+                        ])
 
-        if not os.path.exists(output_dir):
-            try:
-                os.makedirs(output_dir)
-            except FileExistsError:
-                pass
-        
-        with open(output_file, "w+") as f:
-            json.dump(output, f)
-        
-        return output_file
+            output_file = os.sep.join([
+                            output_dir,
+                            review_id+".json"
+                        ])
+
+            if not os.path.exists(output_dir):
+                try:
+                    os.makedirs(output_dir)
+                except FileExistsError:
+                    pass
+
+            with open(output_file, "w+") as f:
+                json.dump(output, f)
+            
+            return output_file
+        else:
+            raise Exception("Cannot save output file properly because one of those is empty: {}".format({
+                "localityId": locality_id,
+                "attractionId": attraction_id,
+                "reviewId": attraction_id
+            }))
 
     def load_input(self):
         if self.input is None:
@@ -99,11 +110,13 @@ class Extractor(Configurable):
         failed_keys = []
         success_keys = []
         output_files = []
+        input_file = self.input_file
         message = "Extracted {} keys successfully with {} failing keys."
         failed = False
 
         template_keys = self.get_flattened_template_keys()
-    
+        incomplete_data = False
+
         for key in template_keys:
             try:
                 template_regex = self.get_template_regex(key)
@@ -117,24 +130,31 @@ class Extractor(Configurable):
                         self.set_output(key, extracted_data[0])
                     else:
                         self.set_output(key, extracted_data)
-
                     success_keys.append(key)
                 else:
                     self.set_output(key, "")
                     failed_keys.append(key)
+                    incomplete_data = True
+                    failed = True
 
             except Exception as e:
                 message += "An exception ocurred: {}".format(e)
                 failed = True
 
-        message = message.format(len(success_keys), len(failed_keys))
+
+
+        if incomplete_data:
+            failed = True
+            message = "Review is being discarded for having missing data for: {}".format(failed_keys)
+            return (failed, message, success_keys, failed_keys, output_files, input_file)
+        else:
+            message = message.format(len(success_keys), len(failed_keys))
 
         try:
             formatter = ReviewFormatter(
                 self.output, self.get_config("uniqueTemplateKeys"),
                 self.flattened_template_keys, self.config_file
             )
-            
             formatted_reviews = formatter.format_reviews()
             for review in formatted_reviews:
                 output_files.append(
@@ -143,9 +163,9 @@ class Extractor(Configurable):
 
         except Exception as e:
             failed = True
-            message = "An error occurred, stopping. The exception was: {}".format(e)
+            message = "An error occurred, discarding review. The exception was: {}".format(e)
             success_keys = []
             failed_keys = []
             output_files = []
 
-        return (failed, message, success_keys, failed_keys, output_files)
+        return (failed, message, success_keys, failed_keys, output_files, input_file)

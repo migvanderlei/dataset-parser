@@ -9,8 +9,8 @@
     "template": {
         "type": "\"pageType\":\"([\\w]*)",
         "reviewId": "rid\":(\\d*)\\}\",\"trackingTitle\":\"ReviewDetailsCard",
-        "localityId": "\\{\"locations\":\\[\\{\"location\":\\{\"locationId\":\\d+,\"parentId\":(\\d+),\"name\"",
-        "attractionId": "\"location\":{\"locationId\":(\\d*),\"parentId\"",
+        "localityId": "\"geoId\":(\\d*),\"detailId\"",
+        "attractionId": "https://www\\.tripadvisor\\.com\\.\\w{2}/[\\w-]+-d(\\d+)-[\\w-]+\\.html",
         "userDisplayName": "\"trackingTitle\":\"ReviewDetailsCard_?(?:(?!displayName).)*\"displayName\":\"?((?:(?!\"?,\").)*)",
         "username": "style=\"z-index:0\"div class=\"f3gJ-yIA _3sXDPf_W\"a target=\"_self\" tabindex=\"-1\" aria-hidden=\"true\" href=\"/Profile/(\\w*)\" class=\"_7c6GgQ6n _22upaSQN _37QDe3gr\"div class=\"WullykOU _2L7OTqqK\"picture class=\"_2f-Th360\""
     }

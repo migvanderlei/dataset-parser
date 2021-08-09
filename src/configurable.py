@@ -1,4 +1,6 @@
-import os, json
+import os
+import json
+import logging
 
 class Configurable:
 
@@ -21,11 +23,17 @@ class Configurable:
         if self.config_file is None:
             dir_name = os.path.dirname(__file__)
             file_name = os.path.join(dir_name, '..', 'config', 'config.json')
-        else:
+        elif self.config_file.startswith(os.sep):
             file_name = self.config_file
-
-        with open(file_name) as f:
-            return json.load(f)
+        else:
+            dir_name = os.path.dirname(__file__)
+            file_name = os.path.join(dir_name, "..", self.config_file)
+        try:
+            with open(file_name) as f:
+                return json.load(f)
+        except FileNotFoundError:
+            logging.error("Config file not found: {}".format(file_name))
+            raise FileNotFoundError("Config file not found: {}".format(file_name))
 
     def get_config(self, key, config=None):
         if config is None:

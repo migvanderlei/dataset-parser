@@ -41,9 +41,9 @@ class Dispatcher(Configurable):
             for result in executor.map(handle_extraction, input_list, [self.config_file] * len(input_list)):
                 failed, message, _, _, _, input_file = result
                 if failed:
-                    logging.error("{} File: {}".format(message, input_file))
+                    logging.error("{} File: \"{}\"".format(message, input_file))
                 else: 
-                    logging.info("{} File: {}".format(message, input_file))
+                    logging.info("{} File: \"{}\"".format(message, input_file))
 
             elapsed_time = datetime.now() - start_time
             logging.info("Extraction process finished in {}.".format((elapsed_time)))
@@ -51,5 +51,3 @@ class Dispatcher(Configurable):
 def handle_extraction(input_file, config_file=None):
     e = Extractor(input_file, config_file)
     return e.extract()
-
-

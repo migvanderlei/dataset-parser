@@ -1,6 +1,8 @@
 {
-    "outputPath": "/home/miguel/Workspace/dataset-parser/output",
+    "outputPath": "/home/miguel/Workspace/data/output",
+    "inputPath": "/home/miguel/Workspace/data/*/*/*.html",
     "maxProcessCount": 0.5,
+    "maxThreadCount": 100,
     "charsToPurge": ["<", ">", "\\"],
     "textDateFields": [],
     "uniqueTemplateKeys": ["type", "localityId", "attractionId"],

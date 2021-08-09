@@ -1,7 +1,8 @@
 {
-    "outputPath": "/home/miguel/Workspace/dataset-parser/output",
-    "inputPath": "/home/miguel/Workspace/dataset-parser/303297",
-    "maxProcessCount": 0.3,
+    "outputPath": "/home/miguel/Workspace/data/output",
+    "inputPath": "/home/miguel/Workspace/data/*/*/*.html",
+    "maxProcessCount": 0.5,
+    "maxThreadCount": 100,
     "charsToPurge": ["<", ">", "\\"],
     "unicodeFormat": ["u\\d\\d\\w\\d"],
     "textDateFields": ["publicationDate", "visitDate"],

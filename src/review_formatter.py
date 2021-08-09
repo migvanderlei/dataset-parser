@@ -1,4 +1,4 @@
-from configurable import Configurable
+from src.configurable import Configurable
 import copy
 
 class ReviewFormatter(Configurable):

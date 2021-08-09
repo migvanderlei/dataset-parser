@@ -3,8 +3,8 @@ from datetime import datetime
 import multiprocessing
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from glob import glob
-from configurable import Configurable
-from extractor import Extractor
+from src.configurable import Configurable
+from src.extractor import Extractor
 
 class Dispatcher(Configurable):
     def __init__(self, config_file=None):
@@ -29,7 +29,10 @@ class Dispatcher(Configurable):
         return glob(input_path)
 
 
-    def run(self, input_path):
+    def run(self, input_path=None):
+        if not input_path:
+            input_path = self.config["inputPath"]
+
         input_list = self.load_inputs(input_path)
 
         logging.info("Found %d files to process." % len(input_list))

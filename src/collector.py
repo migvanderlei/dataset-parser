@@ -2,7 +2,7 @@ import os
 import json
 import logging
 from pandas import json_normalize
-from configurable import Configurable
+from src.configurable import Configurable
 from datetime import datetime
 from glob import glob
 from concurrent.futures import ThreadPoolExecutor, as_completed

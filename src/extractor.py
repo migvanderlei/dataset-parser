@@ -1,6 +1,6 @@
 import json, copy, os, re
-from configurable import Configurable
-from review_formatter import ReviewFormatter
+from src.configurable import Configurable
+from src.review_formatter import ReviewFormatter
 
 class Extractor(Configurable):
 

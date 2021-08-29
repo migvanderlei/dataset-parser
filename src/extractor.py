@@ -9,6 +9,7 @@ class Extractor(Configurable):
 
         self.input_file = input_file
         self.input = None
+        self.required_keys = self.get_config("requiredTemplateKeys")
         self.template = self.config["template"]
         self.flattened_template_keys = []
         self.output = copy.deepcopy(self.template)
@@ -132,16 +133,17 @@ class Extractor(Configurable):
                         self.set_output(key, extracted_data)
                     success_keys.append(key)
                 else:
-                    self.set_output(key, "")
-                    failed_keys.append(key)
-                    incomplete_data = True
-                    failed = True
-
+                    if key in self.required_keys:
+                        self.set_output(key, "")
+                        failed_keys.append(key)
+                        incomplete_data = True
+                        failed = True
+                    else:
+                        self.set_output(key, "None")
+                
             except Exception as e:
                 message += "An exception ocurred: {}.".format(e)
                 failed = True
-
-
 
         if incomplete_data:
             failed = True

@@ -36,6 +36,8 @@ class Dispatcher(Configurable):
         input_list = self.load_inputs(input_path)
 
         logging.info("Found %d files to process." % len(input_list))
+        success_count = 0
+        error_count = 0
 
         with ProcessPoolExecutor(max_workers=self.max_process_count) as executor:
             logging.info("Starting extraction process with {} parallel processess.".format(self.max_process_count))
@@ -45,11 +47,15 @@ class Dispatcher(Configurable):
                 failed, message, _, _, _, input_file = result
                 if failed:
                     logging.error("{} File: \"{}\"".format(message, input_file))
+                    error_count += 1
                 else: 
                     logging.info("{} File: \"{}\"".format(message, input_file))
+                    success_count += 1
 
             elapsed_time = datetime.now() - start_time
             logging.info("Extraction process finished in {}.".format((elapsed_time)))
+            logging.info("Extracted {} successfully ({:.2f}%). Found {} errors ({:.2f}%)."
+                        .format(success_count, success_count / len(input_list) * 100, error_count, error_count / len(input_list) * 100))
 
 def handle_extraction(input_file, config_file=None):
     e = Extractor(input_file, config_file)

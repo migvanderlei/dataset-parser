@@ -1,5 +1,5 @@
 {
-    "outputPath": "/home/miguel/Workspace/data/output",
+    "outputPath": "/home/miguel/Workspace/data/output/reviews",
     "inputPath": "/home/miguel/Workspace/data/*/*/*.html",
     "maxProcessCount": 0.5,
     "maxThreadCount": 100,
@@ -7,6 +7,7 @@
     "unicodeFormat": ["u\\d\\d\\w\\d"],
     "textDateFields": ["publicationDate", "visitDate"],
     "uniqueTemplateKeys": ["type", "localityId", "attractionId", "generalRatingValue", "itemReviewed"],
+    "requiredTemplateKeys": ["type", "reviewId", "localityId", "attractionId", "reviewTitle","reviewText", "itemReviewed.address.name", "username"],
     "template": {
         "type": "\"pageType\":\"([\\w]*)",
         "reviewId": "rid\":(\\d*)\\}\",\"trackingTitle\":\"ReviewDetailsCard",
@@ -19,7 +20,7 @@
         "userLocation": "\"trackingTitle\":\"ReviewDetailsCard_?(?:(?!hometown).)*\"hometown\":\"?((?:(?!\"?,\").)*)",
         "publicationDate": "\"publishedDate\":(?:(?!\\d).)*((?:(?!\"\\}).)*)",
         "visitDate": "\"bubbleRatingText\":{\"text\":\"(\\w{3}\\s\\w{2}\\s\\d{4})",
-        "generalRatingValue": "class=\"_28X3NMFC\"div class=\"zTTYS8QR\" aria-label=\"(\\d,?\\d?) de 5 círculos",
+        "generalRatingValue": "AggregateRating\",\"ratingValue\":\"([\\d.]{3})",
         "userRatingValue": "bubbleRatingNumber\":(\\d)",
         "reviewLikesCount": "class=\"DrjyGw-P _26S7gyB4 _3SccQt-T\"(\\d+)\/",
         "itemReviewed": {
@@ -29,7 +30,7 @@
                 "type": "\"address\":\\{\"@type\":\"((?:(?!\"?,\").)*)",
                 "streetAddress": "\"streetAddress\":\"((?:(?!\"?,\").)*)",
                 "addressLocality": "\"addressLocality\":\"((?:(?!\"?,\").)*)",
-                "addressRegion": "\"addressRegion\":\"((?:(?!\"?,\").)*)\\S*\"image\":\"https:/",
+                "addressRegion": "\"addressRegion\":\"((?:(?!\"?,\").)*)",
                 "postalCode": "\"postalCode\":\"((?:(?!\"?,\"))[\\d\\-\\.]*)",
                 "country": "\"addressCountry\":\"((?:(?!\"))[\\w\\s]*)\",\"postalCode"
             }
